@@ -32,9 +32,9 @@
     "end_at": "serverEndAt",
   }
 ```
-## Variáveis de Ambiente
+## Environment variables
 
-Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+To run this project, you will need to add the following environment variables on your .env file
 
 `STEAMID_API_KEY` 
 
