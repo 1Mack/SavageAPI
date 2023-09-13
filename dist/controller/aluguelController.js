@@ -125,80 +125,10 @@ var AluguelController = /** @class */ (function () {
             });
         });
     };
-    AluguelController.prototype.setPassword = function (_a) {
-        var _b, _c, _d;
-        var password = _a.password, restart = _a.restart;
-        return __awaiter(this, void 0, void 0, function () {
-            var response, error_2, index, data, error_3, error_4, _e;
-            return __generator(this, function (_f) {
-                switch (_f.label) {
-                    case 0:
-                        if (!password || password.length == 0 || typeof password != 'string')
-                            throw new AppError_1.default('API errada, forma correta do body /{password: string} ----- Exemplo: {password: "senhaTeste"}');
-                        if (password.match(/[^a-zA-Z_:0-9]/g))
-                            throw new AppError_1.default('Caracter especial detectado! A senha deve conter apenas letras ou números, não podendo ter [espaço, @,-,especiais da língua portuguesa como ç e ~,...]');
-                        _f.label = 1;
-                    case 1:
-                        _f.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, axios_1.default.get("https://panel.mjsv.us/api/client/servers/".concat((_b = this.request.user) === null || _b === void 0 ? void 0 : _b.identifier, "/files/contents?file=%2Fcsgo%2Fcfg%2Fserver.cfg"), {
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Accept': 'application/json',
-                                    'Authorization': "Bearer ".concat(process.env.PANEL_API_KEY),
-                                }
-                            })];
-                    case 2:
-                        response = _f.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
-                        error_2 = _f.sent();
-                        throw new AppError_1.default('Erro ao buscar informações no server.cfg');
-                    case 4:
-                        index = response.data.indexOf('sv_password');
-                        data = response.data.replace(response.data.substring(index, response.data.indexOf('\n', index)), "sv_password \"".concat(password, "\""));
-                        _f.label = 5;
-                    case 5:
-                        _f.trys.push([5, 7, , 8]);
-                        return [4 /*yield*/, axios_1.default.post("https://panel.mjsv.us/api/client/servers/".concat((_c = this.request.user) === null || _c === void 0 ? void 0 : _c.identifier, "/files/write?file=%2Fcsgo%2Fcfg%2Fserver.cfg"), data, {
-                                headers: {
-                                    'Content-Type': 'text/plain',
-                                    'Accept': 'application/json',
-                                    'Authorization': "Bearer ".concat(process.env.PANEL_API_KEY),
-                                }
-                            })];
-                    case 6:
-                        response = _f.sent();
-                        return [3 /*break*/, 8];
-                    case 7:
-                        error_3 = _f.sent();
-                        throw new AppError_1.default('Erro ao salvar informações no server.cfg');
-                    case 8:
-                        _f.trys.push([8, 10, , 11]);
-                        return [4 /*yield*/, new database_1.Database().query("UPDATE Servidor_Aluguel SET password = '".concat(password, "' WHERE identifier = '").concat((_d = this.request.user) === null || _d === void 0 ? void 0 : _d.identifier, "'"))];
-                    case 9:
-                        _f.sent();
-                        return [3 /*break*/, 11];
-                    case 10:
-                        error_4 = _f.sent();
-                        throw new AppError_1.default('Error ao inserir dados na database');
-                    case 11:
-                        _e = restart;
-                        if (!_e) return [3 /*break*/, 13];
-                        return [4 /*yield*/, this.setPower({ power: 'restart' })];
-                    case 12:
-                        _e = (_f.sent());
-                        _f.label = 13;
-                    case 13:
-                        _e;
-                        return [2 /*return*/, "Senha alterada com sucesso! ".concat(restart ? 'Servidor reiniciando...' : 'Mude o mapa ou reinicie o servidor para ela ser aplicada!')];
-                }
-            });
-        });
-    };
     AluguelController.prototype.getMatchInfos = function () {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var response, error_5;
+            var response, error_2;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -210,7 +140,7 @@ var AluguelController = /** @class */ (function () {
                             throw new AppError_1.default('Nenhuma informação encontrada');
                         return [2 /*return*/, response];
                     case 2:
-                        error_5 = _b.sent();
+                        error_2 = _b.sent();
                         throw new AppError_1.default('Error ao buscar informações do rank no servidor');
                     case 3: return [2 /*return*/];
                 }
@@ -220,7 +150,7 @@ var AluguelController = /** @class */ (function () {
     AluguelController.prototype.deleteMatchInfos = function () {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var error_6;
+            var error_3;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -230,7 +160,7 @@ var AluguelController = /** @class */ (function () {
                         _b.sent();
                         return [2 /*return*/, true];
                     case 2:
-                        error_6 = _b.sent();
+                        error_3 = _b.sent();
                         throw new AppError_1.default('Error ao buscar informações do rank no servidor');
                     case 3: return [2 /*return*/];
                 }

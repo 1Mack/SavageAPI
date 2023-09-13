@@ -99,19 +99,6 @@ aluguelRouter.post('/power', [createAccountLimiter_1.CreateAccountLimiter, verif
         }
     });
 }); });
-aluguelRouter.post('/password', [createAccountLimiter_1.CreateAccountLimiter, verifyToken_1.default], function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var body, result;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                body = request.body;
-                return [4 /*yield*/, new aluguelController_1.AluguelController(request).setPassword(body)];
-            case 1:
-                result = _a.sent();
-                return [2 /*return*/, response.json({ message: result })];
-        }
-    });
-}); });
 aluguelRouter.get('/match/infos', [createAccountLimiter_1.CreateAccountLimiter, verifyToken_1.default], function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
     var result;
     return __generator(this, function (_a) {

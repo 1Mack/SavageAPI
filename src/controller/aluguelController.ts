@@ -7,10 +7,6 @@ import Functions from "../functions"
 interface ICommands {
   commands: string[]
 }
-interface IPassword {
-  password: string
-  restart?: boolean
-}
 interface IPower {
   power: string
 }
@@ -65,46 +61,7 @@ export class AluguelController {
 
     return 'Comando de energia executado com sucesso...espere uns segundos até que o servidor termine de executar o comando!'
   }
-  public async setPassword({ password, restart }: IPassword) {
 
-    if (!password || password.length == 0 || typeof password != 'string') throw new AppError('API errada, forma correta do body /{password: string} ----- Exemplo: {password: "senhaTeste"}')
-    if (password.match(/[^a-zA-Z_:0-9]/g)) throw new AppError('Caracter especial detectado! A senha deve conter apenas letras ou números, não podendo ter [espaço, @,-,especiais da língua portuguesa como ç e ~,...]')
-
-    let response
-    try {
-      response = await axios.get(`https://panel.mjsv.us/api/client/servers/${this.request.user?.identifier}/files/contents?file=%2Fcsgo%2Fcfg%2Fserver.cfg`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${process.env.PANEL_API_KEY}`,
-          }
-        })
-    } catch (error) { throw new AppError('Erro ao buscar informações no server.cfg') }
-    let index = response.data.indexOf('sv_password')
-    let data = response.data.replace(response.data.substring(index, response.data.indexOf('\n', index)), `sv_password "${password}"`)
-
-    try {
-      response = await axios.post(`https://panel.mjsv.us/api/client/servers/${this.request.user?.identifier}/files/write?file=%2Fcsgo%2Fcfg%2Fserver.cfg`, data,
-        {
-          headers: {
-            'Content-Type': 'text/plain',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${process.env.PANEL_API_KEY}`,
-          }
-        })
-    } catch (error) { throw new AppError('Erro ao salvar informações no server.cfg') }
-
-    try {
-      await new Database().query(`UPDATE Servidor_Aluguel SET password = '${password}' WHERE identifier = '${this.request.user?.identifier}'`)
-    } catch (error: any) {
-      throw new AppError('Error ao inserir dados na database')
-    }
-
-    restart && await this.setPower({ power: 'restart' })
-
-    return `Senha alterada com sucesso! ${restart ? 'Servidor reiniciando...' : 'Mude o mapa ou reinicie o servidor para ela ser aplicada!'}`
-  }
   public async getMatchInfos() {
 
     try {

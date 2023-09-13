@@ -42,15 +42,6 @@ aluguelRouter.post('/power', [CreateAccountLimiter, VerifyToken], async (request
 
   return response.json({ message: result })
 })
-aluguelRouter.post('/password', [CreateAccountLimiter, VerifyToken], async (request: Request, response: Response) => {
-
-  const body = request.body
-
-  const result = await new AluguelController(request).setPassword(body)
-
-
-  return response.json({ message: result })
-})
 aluguelRouter.get('/match/infos', [CreateAccountLimiter, VerifyToken], async (request: Request, response: Response) => {
 
   const result = await new AluguelController(request).getMatchInfos()
