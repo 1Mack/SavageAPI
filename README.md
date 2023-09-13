@@ -14,10 +14,10 @@
   POST /aluguel/oauth
 ```
 ##### Request
-| Parâmetro   | Tipo       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `email` | `string` | **Required**. Email used on store |
-| `password` | `string` | **Required**. Password generated and received on your email |
+| Parameter   | Type       | Description                                                 |
+| :---------- | :--------- | :---------------------------------------------------------- |
+| `email`     | `string`   | **Required**. Email used on store                           |
+| `password`  | `string`   | **Required**. Password generated and received on your email |
 
 ##### Response
 ```JSON
