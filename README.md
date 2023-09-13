@@ -23,13 +23,13 @@
 ```JSON
   {
     "name": "serverName",
-	"ip": "serverIp",
-	"serverPassword": "serverPassword",
-	"tempo": "serverBoughtTime",
-	"email": "yourEmail",
-	"token": "generatedToken",
-	"created_at": "serverCreatedAt",
-	"end_at": "serverEndAt",
+    "ip": "serverIp",
+    "serverPassword": "serverPassword",
+    "tempo": "serverBoughtTime",
+    "email": "yourEmail",
+    "token": "generatedToken",
+    "created_at": "serverCreatedAt",
+    "end_at": "serverEndAt",
   }
 ```
 ## Variáveis de Ambiente
