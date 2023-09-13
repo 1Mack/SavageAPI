@@ -40,9 +40,9 @@
     "end_at": "serverEndAt",
   }
 ```
+---
 
 #### Send Command
-
 ```HTTP
   POST /aluguel/command
 ```
@@ -67,6 +67,7 @@
     "error?": "Erro ao Executar o comando /mp_roundtime 3/"
   }
 ```
+---
 
 #### Execute Power Action
 ```HTTP
@@ -91,6 +92,7 @@
   }
 ```
 
+---
 
 #### Get Infos of the Current Match
 ```HTTP
@@ -117,6 +119,7 @@
     "message": "Deletado com sucesso"
   }
 ```
+---
 
 #### Get Demos
 ```HTTP
@@ -136,6 +139,7 @@
     "created_at": "demoCreatedAt", 
   }
 ```
+---
 
 #### Edit Configurations
 ```HTTP
@@ -187,6 +191,7 @@
     }
   }
 ```
+---
 
 #### Get Configurations
 ```HTTP
