@@ -1,9 +1,12 @@
 import { createPool } from 'mysql2';
 import AppError from '../errors/AppError';
+import 'dotenv/config'
 
 export class Database {
+
   private pool2: any
   constructor() {
+
     this.pool2 = createPool({
       host: process.env.DATABASE_HOST,
       user: process.env.DATABASE_USER,

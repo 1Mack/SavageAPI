@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Database = void 0;
 var mysql2_1 = require("mysql2");
+require("dotenv/config");
 var Database = /** @class */ (function () {
     function Database() {
         this.pool2 = (0, mysql2_1.createPool)({
