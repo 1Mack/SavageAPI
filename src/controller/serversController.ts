@@ -13,10 +13,10 @@ export class ServersController {
     newServers.map((svs: any) => {
       svs.serversInfos = svs.serversInfos.map((sv: any) => {
         if (sv.ip.includes('131.196.196.196')) {
-          sv.ip = sv.ip.replace('131.196.196.196', 'ip2.savageservidores.com')
+          sv.ipFormatted = sv.ip.replace('131.196.196.196', 'ip2.savageservidores.com')
           return sv
         } else {
-          sv.ip = sv.ip.replace('131.196.196.197', 'ip.savageservidores.com')
+          sv.ipFormatted = sv.ip.replace('131.196.196.197', 'ip.savageservidores.com')
           return sv
         }
       })
