@@ -66,41 +66,43 @@ app.use(function (err, request, response, next) {
 app.listen("22500", function () {
     console.log('Servidor rodando na porta http://localhost:22500');
     setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
-        var servers, _loop_1, _i, hostInfos_2, serverPort;
+        var servers, _loop_1, _i, hostInfos_2, hostInfo;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     servers = [];
-                    _loop_1 = function (serverPort) {
+                    _loop_1 = function (hostInfo) {
                         return __generator(this, function (_b) {
                             switch (_b.label) {
                                 case 0: return [4 /*yield*/, (0, gamedig_1.query)({
                                         type: 'csgo',
-                                        host: serverPort.host,
-                                        port: serverPort.port,
+                                        host: hostInfo.host,
+                                        port: hostInfo.port,
                                     })
                                         .then(function (state) {
                                         var _a;
-                                        var findSv = servers.find(function (sv) { return sv.name === serverPort.name; });
+                                        var findSv = servers.find(function (sv) { return sv.name === hostInfo.name; });
                                         findSv ?
                                             findSv.serversInfos.push({
                                                 name: state.name,
                                                 map: state.map,
-                                                ip: "".concat(serverPort.host.startsWith('172') ? '131.196.196.196' : serverPort.host, ":").concat(serverPort.port),
+                                                ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
                                                 players: (_a = state.raw) === null || _a === void 0 ? void 0 : _a.numplayers,
-                                                playersTotal: state.maxplayers - 2
+                                                playersTotal: state.maxplayers - 2,
+                                                type: hostInfo.type
                                             })
                                             :
                                                 servers.push({
-                                                    name: serverPort.name,
+                                                    name: hostInfo.name,
                                                     redirectTo: '',
                                                     serversInfos: [
                                                         {
                                                             name: state.name,
                                                             map: state.map,
-                                                            ip: "".concat(serverPort.host.startsWith('172') ? '131.196.196.196' : serverPort.host, ":").concat(serverPort.port),
+                                                            ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
                                                             players: Number(state.raw.numplayers),
-                                                            playersTotal: Number(state.maxplayers) - 2
+                                                            playersTotal: Number(state.maxplayers) - 2,
+                                                            type: hostInfo.type
                                                         }
                                                     ],
                                                 });
@@ -116,8 +118,8 @@ app.listen("22500", function () {
                     _a.label = 1;
                 case 1:
                     if (!(_i < hostInfos_2.length)) return [3 /*break*/, 4];
-                    serverPort = hostInfos_2[_i];
-                    return [5 /*yield**/, _loop_1(serverPort)];
+                    hostInfo = hostInfos_2[_i];
+                    return [5 /*yield**/, _loop_1(hostInfo)];
                 case 2:
                     _a.sent();
                     _a.label = 3;

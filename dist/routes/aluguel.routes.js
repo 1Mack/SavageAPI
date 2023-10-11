@@ -44,10 +44,6 @@ var sessionController_1 = __importDefault(require("../controller/sessionControll
 var express_1 = require("express");
 var verifyToken_1 = __importDefault(require("../middleawares/verifyToken"));
 var aluguelController_1 = require("../controller/aluguelController");
-var crypto_1 = __importDefault(require("crypto"));
-var oauth_1_0a_1 = __importDefault(require("oauth-1.0a"));
-var axios_1 = __importDefault(require("axios"));
-var AppError_1 = __importDefault(require("../errors/AppError"));
 var aluguelRouter = (0, express_1.Router)();
 aluguelRouter.post('/oauth', createAccountLimiter_1.CreateAccountLimiter, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, email, password, result;
@@ -154,105 +150,6 @@ aluguelRouter.get('/configurations', [createAccountLimiter_1.CreateAccountLimite
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, response.json({ timestamp: new Date().toLocaleString('en-GB'), data: result })];
-        }
-    });
-}); });
-aluguelRouter.post('/biosolvit', function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, targetState, targetAssignee, subProcessTargetState, comment, formFields, obj, findUndefinedValue, oauth, requestCfg, authorization, authHeader, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = request.body, targetState = _a.targetState, targetAssignee = _a.targetAssignee, subProcessTargetState = _a.subProcessTargetState, comment = _a.comment, formFields = _a.formFields;
-                if (!formFields || !formFields['nome'] ||
-                    !formFields['cpf'] ||
-                    !formFields['identidade'] ||
-                    !formFields['estadoCivil'] ||
-                    !formFields['vinculo'] ||
-                    !formFields['email'] ||
-                    !formFields['telefone'] ||
-                    !formFields['telefoneCelular'] ||
-                    !formFields['fonteInformacao'] ||
-                    !formFields['entidade'] ||
-                    !formFields['tituloprojeto'] ||
-                    !formFields['problema'] ||
-                    !formFields['esboco'] ||
-                    !formFields['mercado'] ||
-                    !formFields['conhecimento'] ||
-                    !formFields['diferenciais'] ||
-                    !formFields['infoscomplementares'] ||
-                    !formFields['comentarioInterno']) {
-                    throw new AppError_1.default('Você deve preencher todos os campos');
-                }
-                obj = {
-                    targetState: targetState,
-                    targetAssignee: targetAssignee,
-                    subProcessTargetState: subProcessTargetState,
-                    comment: comment,
-                    formFields: {
-                        nome: formFields['nome'],
-                        cpf: formFields['cpf'],
-                        identidade: formFields['identidade'],
-                        estadoCivil: formFields['estadoCivil'],
-                        vinculo: formFields['vinculo'],
-                        email: formFields['email'],
-                        telefone: formFields['telefone'],
-                        telefoneCelular: formFields['telefoneCelular'],
-                        lattes: formFields['lattes'],
-                        fonteInformacao: formFields['fonteInformacao'],
-                        entidade: formFields['entidade'],
-                        tituloprojeto: formFields['tituloprojeto'],
-                        problema: formFields['problema'],
-                        esboco: formFields['esboco'],
-                        mercado: formFields['mercado'],
-                        conhecimento: formFields['conhecimento'],
-                        diferenciais: formFields['diferenciais'],
-                        infoscomplementares: formFields['infoscomplementares'],
-                        comentarioInterno: formFields['comentarioInterno']
-                    },
-                };
-                findUndefinedValue = Object.keys(obj).flatMap(function (m) {
-                    if (m == 'formFields') {
-                        return Object.entries(obj[m]).map(function (m) { return m[1]; });
-                    }
-                    else {
-                        return obj[m];
-                    }
-                }).find(function (m) { return m == undefined; });
-                if (findUndefinedValue)
-                    throw new AppError_1.default('Você deve preencher todos os campos!');
-                oauth = new oauth_1_0a_1.default({
-                    consumer: { key: '6ce71cee-2a2c-11ee-be56-0242ac120002', secret: '786f4f1e-2a2c-11ee-be56-0242ac120002-786f4f1e-2a2c-11ee-be56-0242ac120002' },
-                    signature_method: 'HMAC-SHA1',
-                    hash_function: function (base_string, key) {
-                        return crypto_1.default
-                            .createHmac('sha1', key)
-                            .update(base_string)
-                            .digest('base64');
-                    },
-                });
-                requestCfg = {
-                    url: 'https://biosolvitsolucoes144898.fluig.cloudtotvs.com.br/process-management/api/v2/processes/Processo_1/start',
-                    method: 'POST',
-                    body: JSON.stringify(obj)
-                };
-                authorization = oauth.authorize(requestCfg, {
-                    key: '5b2cd526-2f9c-4205-aa48-f71b59facee2',
-                    secret: '783846da-5f7f-4c15-b5ef-bec75a29b0c1bb3081f1-456a-4eb4-987b-903bb16d4128',
-                });
-                authHeader = oauth.toHeader(authorization);
-                _b.label = 1;
-            case 1:
-                _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axios_1.default.post(requestCfg.url, requestCfg.body, {
-                        headers: { "Authorization": authHeader.Authorization, "Content-Type": "application/json" }
-                    })];
-            case 2:
-                _b.sent();
-                return [2 /*return*/, response.json({ message: 'Enviado com sucesso!' })];
-            case 3:
-                error_1 = _b.sent();
-                throw new AppError_1.default('Erro ao enviar os dados');
-            case 4: return [2 /*return*/];
         }
     });
 }); });
