@@ -37,35 +37,37 @@ app.listen("22500", () => {
   setInterval(async () => {
     let servers: any[] = []
 
-    for (let serverPort of hostInfos) {
+    for (let hostInfo of hostInfos) {
 
       await query({
         type: 'csgo',
-        host: serverPort.host,
-        port: serverPort.port,
+        host: hostInfo.host,
+        port: hostInfo.port,
       })
         .then((state: IState) => {
-          let findSv = servers.find(sv => sv.name === serverPort.name)
+          let findSv = servers.find(sv => sv.name === hostInfo.name)
 
           findSv ?
             findSv.serversInfos.push({
               name: state.name,
               map: state.map,
-              ip: `${serverPort.host.startsWith('172') ? '131.196.196.196' : serverPort.host}:${serverPort.port}`,
+              ip: `${hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host}:${hostInfo.port}`,
               players: state.raw?.numplayers,
-              playersTotal: state.maxplayers - 2
+              playersTotal: state.maxplayers - 2,
+              type: hostInfo.type
             })
             :
             servers.push({
-              name: serverPort.name,
+              name: hostInfo.name,
               redirectTo: '',
               serversInfos: [
                 {
                   name: state.name,
                   map: state.map,
-                  ip: `${serverPort.host.startsWith('172') ? '131.196.196.196' : serverPort.host}:${serverPort.port}`,
+                  ip: `${hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host}:${hostInfo.port}`,
                   players: Number(state.raw.numplayers),
-                  playersTotal: Number(state.maxplayers) - 2
+                  playersTotal: Number(state.maxplayers) - 2,
+                  type: hostInfo.type
                 }
               ],
             })
