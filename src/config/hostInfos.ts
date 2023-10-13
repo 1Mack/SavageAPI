@@ -18,6 +18,12 @@ export const hostInfos = [
     type: 'csgo'
   },
   {
+    name: 'mix',
+    port: 27270,
+    host: '131.196.196.197',
+    type: 'csgo'
+  },
+  {
     name: 'arena',
     port: 27260,
     host: '131.196.196.197',
