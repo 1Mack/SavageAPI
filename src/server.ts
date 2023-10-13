@@ -38,41 +38,69 @@ app.listen("22500", () => {
     let servers: any[] = []
 
     for (let hostInfo of hostInfos) {
-
-      await query({
-        type: 'csgo',
-        host: hostInfo.host,
-        port: hostInfo.port,
-      })
-        .then((state: IState) => {
-          let findSv = servers.find(sv => sv.name === hostInfo.name)
-
-          findSv ?
-            findSv.serversInfos.push({
-              name: state.name,
-              map: state.map,
-              ip: `${hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host}:${hostInfo.port}`,
-              players: state.raw?.numplayers,
-              playersTotal: state.maxplayers - 2,
-              type: hostInfo.type
-            })
-            :
-            servers.push({
-              name: hostInfo.name,
-              redirectTo: '',
-              serversInfos: [
-                {
-                  name: state.name,
-                  map: state.map,
-                  ip: `${hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host}:${hostInfo.port}`,
-                  players: Number(state.raw.numplayers),
-                  playersTotal: Number(state.maxplayers) - 2,
-                  type: hostInfo.type
-                }
-              ],
-            })
+      if (hostInfo.type == 'csgo') {
+        await query({
+          type: 'csgo',
+          host: hostInfo.host,
+          port: hostInfo.port,
         })
-        .catch((err) => { })
+          .then((state: IState) => {
+            let findSv = servers.find(sv => sv.name === hostInfo.name)
+
+            findSv ?
+              findSv.serversInfos.push({
+                name: state.name,
+                map: state.map,
+                ip: `${hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host}:${hostInfo.port}`,
+                players: state.raw?.numplayers,
+                playersTotal: state.maxplayers - 2,
+                type: hostInfo.type
+              })
+              :
+              servers.push({
+                name: hostInfo.name,
+                redirectTo: '',
+                serversInfos: [
+                  {
+                    name: state.name,
+                    map: state.map,
+                    ip: `${hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host}:${hostInfo.port}`,
+                    players: Number(state.raw.numplayers),
+                    playersTotal: Number(state.maxplayers) - 2,
+                    type: hostInfo.type
+                  }
+                ],
+              })
+          })
+          .catch((err) => { })
+      } else {
+        let findSv = servers.find(sv => sv.name === hostInfo.name)
+
+        findSv ?
+          findSv.serversInfos.push({
+            name: hostInfo.visualName,
+            map: 'de_dust2',
+            ip: `${hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host}:${hostInfo.port}`,
+            players: hostInfo.players,
+            playersTotal: hostInfo.maxPlayers,
+            type: hostInfo.type
+          })
+          :
+          servers.push({
+            name: hostInfo.name,
+            redirectTo: '',
+            serversInfos: [
+              {
+                name: hostInfo.visualName,
+                map: 'de_dust2',
+                ip: `${hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host}:${hostInfo.port}`,
+                players: hostInfo.players,
+                playersTotal: hostInfo.maxPlayers,
+                type: hostInfo.type
+              }
+            ],
+          })
+      }
     }
     servers = servers.map(sv => {
       if (sv.serversInfos.length <= 1) return sv;
