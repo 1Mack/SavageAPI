@@ -37,8 +37,11 @@ export const hostInfos = [
   },
   {
     name: 'retake',
+    visualName: 'SAVAGESERVIDORES.COM #1 ➔ RETAKE',
     port: 27110,
     host: '131.196.196.196',
-    type: 'cs2'
+    type: 'cs2',
+    players: 5,
+    maxPlayers: 10
   },
 ]
