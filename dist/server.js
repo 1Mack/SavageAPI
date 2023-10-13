@@ -72,45 +72,76 @@ app.listen("22500", function () {
                 case 0:
                     servers = [];
                     _loop_1 = function (hostInfo) {
+                        var findSv;
                         return __generator(this, function (_b) {
                             switch (_b.label) {
-                                case 0: return [4 /*yield*/, (0, gamedig_1.query)({
-                                        type: 'csgo',
-                                        host: hostInfo.host,
-                                        port: hostInfo.port,
-                                    })
-                                        .then(function (state) {
-                                        var _a;
-                                        var findSv = servers.find(function (sv) { return sv.name === hostInfo.name; });
-                                        findSv ?
-                                            findSv.serversInfos.push({
-                                                name: state.name,
-                                                map: state.map,
-                                                ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
-                                                players: (_a = state.raw) === null || _a === void 0 ? void 0 : _a.numplayers,
-                                                playersTotal: state.maxplayers - 2,
-                                                type: hostInfo.type
-                                            })
-                                            :
-                                                servers.push({
-                                                    name: hostInfo.name,
-                                                    redirectTo: '',
-                                                    serversInfos: [
-                                                        {
-                                                            name: state.name,
-                                                            map: state.map,
-                                                            ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
-                                                            players: Number(state.raw.numplayers),
-                                                            playersTotal: Number(state.maxplayers) - 2,
-                                                            type: hostInfo.type
-                                                        }
-                                                    ],
-                                                });
-                                    })
-                                        .catch(function (err) { })];
+                                case 0:
+                                    if (!(hostInfo.type == 'csgo')) return [3 /*break*/, 2];
+                                    return [4 /*yield*/, (0, gamedig_1.query)({
+                                            type: 'csgo',
+                                            host: hostInfo.host,
+                                            port: hostInfo.port,
+                                        })
+                                            .then(function (state) {
+                                            var _a;
+                                            var findSv = servers.find(function (sv) { return sv.name === hostInfo.name; });
+                                            findSv ?
+                                                findSv.serversInfos.push({
+                                                    name: state.name,
+                                                    map: state.map,
+                                                    ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
+                                                    players: (_a = state.raw) === null || _a === void 0 ? void 0 : _a.numplayers,
+                                                    playersTotal: state.maxplayers - 2,
+                                                    type: hostInfo.type
+                                                })
+                                                :
+                                                    servers.push({
+                                                        name: hostInfo.name,
+                                                        redirectTo: '',
+                                                        serversInfos: [
+                                                            {
+                                                                name: state.name,
+                                                                map: state.map,
+                                                                ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
+                                                                players: Number(state.raw.numplayers),
+                                                                playersTotal: Number(state.maxplayers) - 2,
+                                                                type: hostInfo.type
+                                                            }
+                                                        ],
+                                                    });
+                                        })
+                                            .catch(function (err) { })];
                                 case 1:
                                     _b.sent();
-                                    return [2 /*return*/];
+                                    return [3 /*break*/, 3];
+                                case 2:
+                                    findSv = servers.find(function (sv) { return sv.name === hostInfo.name; });
+                                    findSv ?
+                                        findSv.serversInfos.push({
+                                            name: hostInfo.visualName,
+                                            map: 'de_dust2',
+                                            ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
+                                            players: hostInfo.players,
+                                            playersTotal: hostInfo.maxPlayers,
+                                            type: hostInfo.type
+                                        })
+                                        :
+                                            servers.push({
+                                                name: hostInfo.name,
+                                                redirectTo: '',
+                                                serversInfos: [
+                                                    {
+                                                        name: hostInfo.visualName,
+                                                        map: 'de_dust2',
+                                                        ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
+                                                        players: hostInfo.players,
+                                                        playersTotal: hostInfo.maxPlayers,
+                                                        type: hostInfo.type
+                                                    }
+                                                ],
+                                            });
+                                    _b.label = 3;
+                                case 3: return [2 /*return*/];
                             }
                         });
                     };
