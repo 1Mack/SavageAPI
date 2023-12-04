@@ -65,33 +65,31 @@ app.use(function (err, request, response, next) {
 });
 app.listen("22500", function () {
     console.log('Servidor rodando na porta http://localhost:22500');
-    setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
-        var servers, _loop_1, _i, hostInfos_2, hostInfo;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    servers = [];
-                    _loop_1 = function (hostInfo) {
-                        var findSv;
-                        return __generator(this, function (_b) {
-                            switch (_b.label) {
-                                case 0:
-                                    if (!(hostInfo.type == 'csgo')) return [3 /*break*/, 2];
-                                    return [4 /*yield*/, (0, gamedig_1.query)({
+    function handleServers() {
+        return __awaiter(this, void 0, void 0, function () {
+            var servers, _loop_1, _i, hostInfos_2, hostInfo;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        servers = [];
+                        _loop_1 = function (hostInfo) {
+                            return __generator(this, function (_b) {
+                                switch (_b.label) {
+                                    case 0: return [4 /*yield*/, (0, gamedig_1.query)({
                                             type: 'csgo',
                                             host: hostInfo.host,
                                             port: hostInfo.port,
                                         })
                                             .then(function (state) {
-                                            var _a;
+                                            var _a, _b;
                                             var findSv = servers.find(function (sv) { return sv.name === hostInfo.name; });
                                             findSv ?
                                                 findSv.serversInfos.push({
                                                     name: state.name,
                                                     map: state.map,
                                                     ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
-                                                    players: (_a = state.raw) === null || _a === void 0 ? void 0 : _a.numplayers,
-                                                    playersTotal: state.maxplayers - 2,
+                                                    players: Number((_a = state.raw) === null || _a === void 0 ? void 0 : _a.numplayers),
+                                                    playersTotal: Number(state.maxplayers),
                                                     type: hostInfo.type
                                                 })
                                                 :
@@ -103,93 +101,73 @@ app.listen("22500", function () {
                                                                 name: state.name,
                                                                 map: state.map,
                                                                 ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
-                                                                players: Number(state.raw.numplayers),
-                                                                playersTotal: Number(state.maxplayers) - 2,
+                                                                players: Number((_b = state.raw) === null || _b === void 0 ? void 0 : _b.numplayers),
+                                                                playersTotal: Number(state.maxplayers),
                                                                 type: hostInfo.type
                                                             }
                                                         ],
                                                     });
                                         })
-                                            .catch(function (err) { })];
-                                case 1:
-                                    _b.sent();
-                                    return [3 /*break*/, 3];
-                                case 2:
-                                    findSv = servers.find(function (sv) { return sv.name === hostInfo.name; });
-                                    findSv ?
-                                        findSv.serversInfos.push({
-                                            name: hostInfo.visualName,
-                                            map: 'de_dust2',
-                                            ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
-                                            players: hostInfo.players,
-                                            playersTotal: hostInfo.maxPlayers,
-                                            type: hostInfo.type
-                                        })
-                                        :
-                                            servers.push({
-                                                name: hostInfo.name,
-                                                redirectTo: '',
-                                                serversInfos: [
-                                                    {
-                                                        name: hostInfo.visualName,
-                                                        map: 'de_dust2',
-                                                        ip: "".concat(hostInfo.host.startsWith('172') ? '131.196.196.196' : hostInfo.host, ":").concat(hostInfo.port),
-                                                        players: hostInfo.players,
-                                                        playersTotal: hostInfo.maxPlayers,
-                                                        type: hostInfo.type
-                                                    }
-                                                ],
-                                            });
-                                    _b.label = 3;
-                                case 3: return [2 /*return*/];
-                            }
-                        });
-                    };
-                    _i = 0, hostInfos_2 = hostInfos_1.hostInfos;
-                    _a.label = 1;
-                case 1:
-                    if (!(_i < hostInfos_2.length)) return [3 /*break*/, 4];
-                    hostInfo = hostInfos_2[_i];
-                    return [5 /*yield**/, _loop_1(hostInfo)];
-                case 2:
-                    _a.sent();
-                    _a.label = 3;
-                case 3:
-                    _i++;
-                    return [3 /*break*/, 1];
-                case 4:
-                    servers = servers.map(function (sv) {
-                        if (sv.serversInfos.length <= 1)
-                            return sv;
-                        var newSv = [];
-                        for (var i in sv.serversInfos) {
-                            if (sv.serversInfos[i].players > sv.serversInfos[i].playersTotal) {
-                                continue;
-                            }
-                            else {
-                                var playerDivision = Number((sv.serversInfos[i].players / sv.serversInfos[i].playersTotal).toFixed(2));
-                                if (playerDivision >= 1) {
+                                            .catch(function (err) { console.log(err); })];
+                                    case 1:
+                                        _b.sent();
+                                        return [2 /*return*/];
+                                }
+                            });
+                        };
+                        _i = 0, hostInfos_2 = hostInfos_1.hostInfos;
+                        _a.label = 1;
+                    case 1:
+                        if (!(_i < hostInfos_2.length)) return [3 /*break*/, 4];
+                        hostInfo = hostInfos_2[_i];
+                        return [5 /*yield**/, _loop_1(hostInfo)];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        _i++;
+                        return [3 /*break*/, 1];
+                    case 4:
+                        servers = servers.map(function (sv) {
+                            if (sv.serversInfos.length <= 1)
+                                return sv;
+                            var newSv = [];
+                            for (var i in sv.serversInfos) {
+                                if (sv.serversInfos[i].players > sv.serversInfos[i].playersTotal) {
                                     continue;
                                 }
                                 else {
-                                    newSv.push([playerDivision, i]);
+                                    var playerDivision = Number((sv.serversInfos[i].players / sv.serversInfos[i].playersTotal).toFixed(2));
+                                    if (playerDivision >= 1) {
+                                        continue;
+                                    }
+                                    else {
+                                        newSv.push([playerDivision, i]);
+                                    }
                                 }
                             }
-                        }
-                        if (newSv.length == 0) {
-                            sv.redirectTo = '';
-                        }
-                        else {
-                            var getServers = newSv.reduce(function (prev, curr) {
-                                return (Math.abs(curr[0] - 0.45) < Math.abs(prev[0] - 0.4) ? curr : prev);
-                            });
-                            getServers = sv.serversInfos[getServers[1]].ip;
-                            getServers ? sv.redirectTo = getServers : sv.redirectTo = sv.serversInfos[0].ip;
-                        }
-                        return sv;
-                    });
-                    return [2 /*return*/, app.locals.servers = servers];
-            }
+                            if (newSv.length == 0) {
+                                sv.redirectTo = '';
+                            }
+                            else {
+                                var getServers = newSv.reduce(function (prev, curr) {
+                                    return (Math.abs(curr[0] - 0.45) < Math.abs(prev[0] - 0.4) ? curr : prev);
+                                });
+                                getServers = sv.serversInfos[getServers[1]].ip;
+                                getServers ? sv.redirectTo = getServers : sv.redirectTo = sv.serversInfos[0].ip;
+                            }
+                            return sv;
+                        });
+                        return [2 /*return*/, app.locals.servers = servers];
+                }
+            });
         });
-    }); }, 15000);
+    }
+    handleServers();
+    setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            handleServers();
+            return [2 /*return*/];
+        });
+    }); }, 20000);
 });
