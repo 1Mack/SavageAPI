@@ -50,4 +50,10 @@ exports.hostInfos = [
         host: '172.16.0.30',
         type: 'cs2',
     },
+    {
+        name: 'mix',
+        port: 27230,
+        host: '172.16.0.30',
+        type: 'cs2',
+    },
 ];
