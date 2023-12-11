@@ -108,7 +108,7 @@ app.listen("22500", function () {
                                                         ],
                                                     });
                                         })
-                                            .catch(function (err) { console.log(err); })];
+                                            .catch(function (err) { })];
                                     case 1:
                                         _b.sent();
                                         return [2 /*return*/];
