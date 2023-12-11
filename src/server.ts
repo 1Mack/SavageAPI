@@ -71,7 +71,7 @@ app.listen("22500", () => {
               ],
             })
         })
-        .catch((err) => { console.log(err) })
+        .catch((err) => { })
     }
 
     servers = servers.map(sv => {
