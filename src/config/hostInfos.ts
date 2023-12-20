@@ -12,8 +12,20 @@ export const hostInfos = [
     type: 'csgo'
   },
   {
+    name: 'retake',
+    port: 27330,
+    host: '131.196.196.197',
+    type: 'csgo'
+  },
+  {
     name: 'mix',
     port: 27190,
+    host: '131.196.196.197',
+    type: 'csgo'
+  },
+  {
+    name: 'mix',
+    port: 27260,
     host: '131.196.196.197',
     type: 'csgo'
   },
@@ -22,30 +34,11 @@ export const hostInfos = [
     port: 27270,
     host: '131.196.196.197',
     type: 'csgo'
-  },
-  {
-    name: 'arena',
-    port: 27260,
+  }, {
+    name: 'mix',
+    port: 27280,
     host: '131.196.196.197',
     type: 'csgo'
-  },
-  {
-    name: 'retake',
-    port: 27330,
-    host: '131.196.196.197',
-    type: 'csgo'
-  },
-  {
-    name: 'dm',
-    port: 27310,
-    host: '131.196.196.197',
-    type: 'csgo'
-  },
-  {
-    name: 'awp',
-    port: 27110,
-    host: '131.196.196.196',
-    type: 'cs2',
   },
   {
     name: 'mix',
