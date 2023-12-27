@@ -43,7 +43,13 @@ export const hostInfos = [
   {
     name: 'mix',
     port: 27230,
-    host: '131.196.196.196',
+    host: '172.16.0.30',
+    type: 'cs2',
+  },
+  {
+    name: 'awp',
+    port: 27110,
+    host: '172.16.0.30',
     type: 'cs2',
   },
 ]
