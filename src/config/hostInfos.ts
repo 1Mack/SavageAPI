@@ -34,9 +34,16 @@ export const hostInfos = [
     port: 27270,
     host: '131.196.196.197',
     type: 'csgo'
-  }, {
+  },
+  {
     name: 'mix',
     port: 27280,
+    host: '131.196.196.197',
+    type: 'csgo'
+  },
+  {
+    name: 'retake',
+    port: 27400,
     host: '131.196.196.197',
     type: 'csgo'
   },
